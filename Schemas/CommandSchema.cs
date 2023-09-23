@@ -32,7 +32,7 @@ namespace project_backend.Schemas
         public DateTime CreatedAt { get; set; }
         public TableRestaurantGet TableRestaurant { get; set; }
         public CommandStateGet CommandState { get; set; }
-        public EmployeeGet Employee { get; set; }
+        //public EmployeeGet Employee { get; set; }
         public List<CommandDetailsGet> CommandDetailsCollection { get; set; } = new List<CommandDetailsGet>();
     }
 }

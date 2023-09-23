@@ -26,11 +26,11 @@ namespace project_backend.Models
         public int CommandStateId { get; set; }
         public CommandState CommandState { get; set; }
 
-        public Receipt? Receipt { get; set; }
+        //public Receipt? Receipt { get; set; }
 
         [Column("employee_id")]
         public int EmployeeId { get; set; }
-        public Employee Employee { get; set; }
+        //public Employee Employee { get; set; }
 
         public List<CommandDetails> CommandDetailsCollection { get; set; } = new List<CommandDetails>();
     }
