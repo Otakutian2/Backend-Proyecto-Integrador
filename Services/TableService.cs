@@ -87,7 +87,7 @@ namespace project_backend.Services
 
             return result;
         }
-
+        /*
         public async Task<int> GetNumberCommandInTable(int tableId)
         {
             var table = await _context.TableRestaurant
@@ -97,7 +97,7 @@ namespace project_backend.Services
 
             return table.CommandCollection.Count;
         }
-
+        */
         public async Task<int> Count(Expression<Func<TableRestaurant, bool>> predicate = null)
         {
             return await (predicate != null ? _context.TableRestaurant.CountAsync(predicate) : _context.TableRestaurant.CountAsync());

@@ -30,7 +30,7 @@ namespace project_backend.Models
 
         [Column("employee_id")]
         public int EmployeeId { get; set; }
-        //public Employee Employee { get; set; }
+        public Employee Employee { get; set; }
 
         public List<CommandDetails> CommandDetailsCollection { get; set; } = new List<CommandDetails>();
     }
