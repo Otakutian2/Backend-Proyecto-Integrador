@@ -18,8 +18,8 @@ namespace project_backend.Models
 
         public User User { get; set; }
 
-        public List<Commands> Commands { get; } = new List<Commands>();
+        public List<Command> Commands { get; } = new List<Command>();
 
-        public List<Voucher> Vouchers { get; } = new List<Voucher>();
+        public List<Receipt> ReceiptCollection { get; } = new List<Receipt>();
     }
 }
