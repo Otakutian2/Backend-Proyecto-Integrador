@@ -14,20 +14,20 @@ builder.Services.AddDbContext<CommandContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CommandContext") ?? throw new InvalidOperationException("Connection string 'CommandContext' not found.")));
 
 builder.Services.AddHttpContextAccessor();
-//builder.Services.AddScoped<IAuth, AuthService>();
+builder.Services.AddScoped<IAuth, AuthService>();
 builder.Services.AddScoped<IEmployee, EmployeeService>();
 builder.Services.AddScoped<IUser, UserService>();
 builder.Services.AddScoped<IRole, RoleService>();
 builder.Services.AddScoped<ITableRestaurant, TableService>();
-//builder.Services.AddScoped<ICommand, CommandService>();
+builder.Services.AddScoped<ICommand, CommandService>();
 builder.Services.AddScoped<IDish, DishService>();
 builder.Services.AddScoped<ICategory, CategoryService>();
 builder.Services.AddScoped<IPaymentMethod, PaymentMethodService>();
 builder.Services.AddScoped<ICash, CashService>();
 //builder.Services.AddScoped<IEstablishment, EstablishmentService>();
-//builder.Services.AddScoped<IReceipt, ReceiptService>();
+builder.Services.AddScoped<IReceipt, ReceiptService>();
 builder.Services.AddScoped<ICustomer, CustomerService>();
-//builder.Services.AddScoped<IReceiptType, ReceiptTypeServices>();
+builder.Services.AddScoped<IReceiptType, ReceiptTypeServices>();
 //builder.Services.AddScoped<IReport, ReportService>();
 builder.Services.AddScoped<IEmail, EmailService>();
 
