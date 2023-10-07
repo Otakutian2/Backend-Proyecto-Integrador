@@ -8,7 +8,6 @@ namespace project_backend.Interfaces
         public Task<Customer> GetById(int id);
         public Task<Customer> GetFirstOrDefault();
         public Task<bool> CreateCustomer(Customer customer);
-
-        public Task<Customer> findCustomerByDNI(string id);
+        public Task<Customer> FindCustomerByDni(string id);
     }
 }

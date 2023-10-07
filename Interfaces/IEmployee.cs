@@ -1,4 +1,5 @@
 ﻿using project_backend.Models;
+using System.Linq.Expressions;
 
 namespace project_backend.Interfaces
 {
@@ -9,8 +10,9 @@ namespace project_backend.Interfaces
         public Task<bool> CreateEmployee(Employee employee);
         public Task<bool> UpdateEmployee(Employee employee);
         public Task<bool> DeleteEmployee(Employee employee);
-        public Task<int> GetNumberCommandsInEmployee(int idEmployee);
-        public Task<bool> IsDniUnique(string dni, int? idEmployee = null);
-        public Task<bool> IsPhoneUnique(string phone, int? idEmployee = null);
+        public Task<bool> IsDniUnique(string dni, int? employeeId = null);
+        public Task<bool> IsEmailUnique(string email, int? employeeId = null);
+        public Task<bool> IsPhoneUnique(string phone, int? employeeId = null);
+        public Task<int> Count(Expression<Func<Employee, bool>> predicate = null);
     }
 }

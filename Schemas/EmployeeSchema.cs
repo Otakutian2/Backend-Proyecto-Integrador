@@ -30,26 +30,11 @@ namespace project_backend.Schemas
         public UserPrincipal User { get; set; }
     }
 
-    public class EmployeeUpdate : EmployeePrincipal
-    {
-        [Required(ErrorMessage = "El campo 'Rol' es requerido")]
-        public int RoleId { get; set; }
-
-        public UserPrincipal User { get; set; }
-    }
-
     public class EmployeeGet : EmployeePrincipal
     {
         public int Id { get; set; }
-
         public RoleGet Role { get; set; }
-
         public DateTime CreatedAt { get; set; }
-
         public UserPrincipal User { get; set; }
-    }
-    public class EmployeGetCommand : EmployeePrincipal
-    {
-        public int Id { get; set; }
     }
 }
