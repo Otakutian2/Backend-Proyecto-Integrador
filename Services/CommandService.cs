@@ -42,25 +42,26 @@ namespace project_backend.Services
             return command;
         }
 
-       public async Task<bool> CreateCommand(Command command)
+        public async Task<bool> CreateCommand(Command command)
         {
             using var transaction = _context.Database.BeginTransaction();
             bool result = false;
 
             try
             {
-                command.CommandStateId = ((int)CommandStateEnum.Generated);
+                command.CommandStateId = (int)CommandStateEnum.Generated;
 
                 decimal totalOrderPrice = 0;
 
-                var tasks = command.CommandDetailsCollection.Select(async c =>
-                 {
-                     c.DishPrice = await _context.Dish.Where(d => d.Id == c.DishId).Select(d => d.Price).FirstOrDefaultAsync();
-                     c.OrderPrice = c.DishPrice * c.DishQuantity;
-                     totalOrderPrice += c.OrderPrice;
-                 });
+                var dishIds = command.CommandDetailsCollection.Select(c => c.DishId).ToList();
+                var dishPrices = await _context.Dish.Where(d => dishIds.Contains(d.Id)).ToDictionaryAsync(d => d.Id, d => d.Price);
 
-                await Task.WhenAll(tasks);
+                foreach (var c in command.CommandDetailsCollection)
+                {
+                    c.DishPrice = dishPrices[c.DishId];
+                    c.OrderPrice = c.DishPrice * c.DishQuantity;
+                    totalOrderPrice += c.OrderPrice;
+                }
 
                 command.TotalOrderPrice = totalOrderPrice;
 
