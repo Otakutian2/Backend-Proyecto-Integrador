@@ -24,7 +24,7 @@ builder.Services.AddScoped<IDish, DishService>();
 builder.Services.AddScoped<ICategory, CategoryService>();
 builder.Services.AddScoped<IPaymentMethod, PaymentMethodService>();
 builder.Services.AddScoped<ICash, CashService>();
-//builder.Services.AddScoped<IEstablishment, EstablishmentService>();
+builder.Services.AddScoped<IEstablishment, EstablishmentService>();
 builder.Services.AddScoped<IReceipt, ReceiptService>();
 builder.Services.AddScoped<ICustomer, CustomerService>();
 builder.Services.AddScoped<IReceiptType, ReceiptTypeServices>();
