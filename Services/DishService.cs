@@ -94,6 +94,16 @@ namespace project_backend.Services
             return result;
         }
 
+        public async Task<List<Dish>> GetDishByIdCategory(string id)
+        {
+            List<Dish> listDish = await _context.Dish
+               .Include(d => d.Category)
+               .Where(d => d.CategoryId == id)
+               .ToListAsync();
+
+            return listDish;
+        }
+
         public async Task<int> Count(Expression<Func<Dish, bool>> predicate = null)
         {
             return await (predicate != null ? _context.Dish.CountAsync(predicate) : _context.Dish.CountAsync());

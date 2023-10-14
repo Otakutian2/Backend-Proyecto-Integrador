@@ -13,5 +13,8 @@ namespace project_backend.Interfaces
         public Task<bool> UpdateDish(Dish Dish);
         public Task<bool> IsNameUnique(string name, string dishId = null);
         public Task<int> Count(Expression<Func<Dish, bool>> predicate = null);
+        public Task<List<DishOrderStatistics>> GetDishOrderStatistics();
+
+        public Task<List<Dish>> GetDishByIdCategory(string id);
     }
 }
