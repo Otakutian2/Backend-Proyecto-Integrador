@@ -8,7 +8,7 @@ namespace project_backend.Models
         public int Id { get; set; }
 
         [Column("seat_count")]
-        public int SeatCount { get; set; }
+        public int? SeatCount { get; set; }
 
         [Column("total_order_price")]
         [Precision(6, 2)]
@@ -26,7 +26,7 @@ namespace project_backend.Models
         public int CommandStateId { get; set; }
         public CommandState CommandState { get; set; }
 
-        //public Receipt? Receipt { get; set; }
+        public Receipt? Receipt { get; set; }
 
         [Column("employee_id")]
         public int EmployeeId { get; set; }

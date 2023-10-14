@@ -21,4 +21,10 @@ namespace project_backend.Schemas
         public int Id { get; set; }
         public string State { get; set; }
     }
+
+    public class TableRestaurantWithCommand
+    {
+        public TableRestaurantGet? Table { get; set; }
+        public CommandForTable Command { get; set; }
+    }
 }

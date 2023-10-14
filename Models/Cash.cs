@@ -10,6 +10,6 @@ namespace project_backend.Models
         public int EstablishmentId { get; set; }
         public Establishment Establishment { get; set; }
 
-      /*  public List<Receipt> ReceiptCollection { get; } = new List<Receipt>();*/
+        public List<Receipt> ReceiptCollection { get; } = new List<Receipt>();
     }
 }

@@ -15,6 +15,6 @@ namespace project_backend.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
-       /* public List<ReceiptDetails> ReceiptDetailsCollection { get; } = new List<ReceiptDetails>();*/
+        public List<ReceiptDetails> ReceiptDetailsCollection { get; } = new List<ReceiptDetails>();
     }
 }

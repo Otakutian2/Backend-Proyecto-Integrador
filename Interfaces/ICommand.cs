@@ -1,4 +1,5 @@
 ﻿using project_backend.Models;
+using project_backend.Schemas;
 using System.Linq.Expressions;
 
 namespace project_backend.Interfaces
@@ -14,10 +15,6 @@ namespace project_backend.Interfaces
         public Task<bool> PayCommand(Command command);
         public Task<int> Count(Expression<Func<Command, bool>> predicate = null);
         public Task<int> CommandDetailsCount(Expression<Func<CommandDetails, bool>> predicate = null);
-        /*
-  
-       
-        //public Task<GetCommandWithTable> GetCommandByTableId(int id);
-        public Task<bool> UpdateCommandState(int id);*/
+        public Task<List<TableRestaurantWithCommand>> GetCommandCollectionWithoutTable(string role);
     }
 }

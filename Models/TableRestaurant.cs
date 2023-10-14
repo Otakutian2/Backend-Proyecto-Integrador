@@ -16,6 +16,6 @@ namespace project_backend.Models
         [MaxLength(10)]
         public string State { get; set; }
 
-        //public List<Command> CommandCollection { get; } = new List<Command>();
+        public List<Command> CommandCollection { get; } = new List<Command>();
     }
 }

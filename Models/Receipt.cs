@@ -19,6 +19,9 @@ namespace project_backend.Models
         public decimal Igv { get; set; }
 
         [Precision(5, 2)]
+        public decimal AdditionalAmount { get; set; }
+
+        [Precision(5, 2)]
         public decimal Discount { get; set; }
 
         [Column("command_id")]

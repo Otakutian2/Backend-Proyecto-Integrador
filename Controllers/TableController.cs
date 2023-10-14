@@ -133,37 +133,8 @@ namespace project_backend.Controllers
             var tableCollectionWithCommand = (await _tableService.GetTableCollectionWithCommand(_authService.GetCurrentUserRole())).Adapt<List<TableRestaurantWithCommand>>();
             var commandCollectionWithoutCommand = (await _commandService.GetCommandCollectionWithoutTable(_authService.GetCurrentUserRole())).Adapt<List<TableRestaurantWithCommand>>();
             tableCollectionWithCommand.AddRange(commandCollectionWithoutCommand);
-           
+
             return Ok(tableCollectionWithCommand);
         }
-
-        /*
-        [HttpGet("table-command")]
-        public async Task<ActionResult<List<TableComands>>> GetTableCollectionWithCommand()
-        {
-            var userRole = User.FindFirstValue(ClaimTypes.Role);
-            var tables = await _tableService.GetTableCollectionWithCommand(userRole);
-
-            return Ok(tables);
-        }
-
-
-        [HttpGet("table-command/{id}")]
-        public async Task<ActionResult<TableComands>> GetTableCollectionWithCommandByTableId(int id)
-        {
-            var tables = await _tableService.GetTableCollectionWithCommandByTableId(id);
-
-            if (tables == null)
-            {
-                return NotFound("Mesa no encontrada");
-            }
-            else if (tables == null)
-            {
-                return NotFound("No hay Mesas");
-            }
-            return Ok(tables);
-        }
-        */
-
     }
 }

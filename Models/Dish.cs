@@ -25,7 +25,7 @@ namespace project_backend.Models
         public string CategoryId { get; set; }
         public Category Category { get; set; }
 
-        //public List<CommandDetails> CommandDetailsCollection { get; } = new List<CommandDetails>();
+        public List<CommandDetails> CommandDetailsCollection { get; } = new List<CommandDetails>();
 
         public static string GenerateId(List<Dish> dishCollection)
         {

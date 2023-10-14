@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Mapster;
+using Microsoft.EntityFrameworkCore;
 using project_backend.Data;
 using project_backend.Enums;
 using project_backend.Interfaces;
 using project_backend.Models;
+using project_backend.Schemas;
 using System.Linq.Expressions;
 
 namespace project_backend.Services
@@ -143,7 +145,7 @@ namespace project_backend.Services
 
             try
             {
-                command.CommandStateId = ((int)CommandStateEnum.Prepared);
+                command.CommandStateId = (int)CommandStateEnum.Prepared;
                 _context.Entry(command).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
 
@@ -163,7 +165,7 @@ namespace project_backend.Services
 
             try
             {
-                command.CommandStateId = ((int)CommandStateEnum.Paid);
+                command.CommandStateId = (int)CommandStateEnum.Paid;
                 _context.Entry(command).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
 
@@ -186,98 +188,43 @@ namespace project_backend.Services
             return await (predicate != null ? _context.CommandDetails.CountAsync(predicate) : _context.CommandDetails.CountAsync());
         }
 
-        /*
-     
-
-        public async Task<GetCommandWithTable> GetCommandByTableId(int id)
+        public async Task<List<TableRestaurantWithCommand>> GetCommandCollectionWithoutTable(string role)
         {
-            GetCommandWithTable command = new GetCommandWithTable();
+            List<TableRestaurantWithCommand> collection = new();
+            var commands = await _context.Command.Where(c => c.TableRestaurantId == null && c.CommandStateId != (int)CommandStateEnum.Paid)
+                .Include(c => c.Employee.User)
+                .Include(c => c.Employee.Role)
+                .Include(c => c.CommandState)
+                .Include(c => c.CommandDetailsCollection).ToListAsync();
+            string[] roles = { "Cajero", "Cocinero" };
 
-            Command commandS = await _context.Command
-           .Include(c => c.TableRestaurant)
-           .Include(c => c.Employee)
-           .Include(c => c.CommandState)
-           .Include(c => c.CommandDetailsCollection).ThenInclude(d => d.Dish).ThenInclude(ca => ca.Category)
-           .FirstOrDefaultAsync(c => c.TableRestaurant.Id == id && c.CommandState.Id != 3 && c.TableRestaurant.State.Equals("Ocupado"));
-
-            if (commandS is null)
+            foreach (var command in commands)
             {
-                TableRestaurant table = await _context.TableRestaurant.FirstOrDefaultAsync(t => t.Id == id && t.State.Equals("Libre"));
+                TableRestaurantWithCommand tableWithCommand = new();
+                tableWithCommand.Table = null;
 
-                int idd = _context.Command.Any() ? _context.Command.Max(c => c.Id) + 1 : 1;
-                if (table != null)
+                if (command != null)
                 {
-                    command = new GetCommandWithTable()
+                    if (roles.Contains(role) && command.CommandStateId != (int)CommandStateEnum.Prepared)
                     {
-                        Id = 0,
-                        CantSeats = 0,
-                        CreatedAt = "",
-                        EmployeeId = 0,
-                        EmployeeName = "",
-                        NumSeats = table.SeatCount,
-                        NumTable = table.Id,
-                        PrecTotOrder = 0,
-                        StateTable = table.State,
-                        StatescommandId = 0,
-                        StatesCommandName = CommandStateEnum.Generated.ToString(),
-                        isCommandActive = false,
-                        DetailsComand = new List<DetailCommandCustom>()
-                    };
+                        continue;
+                    }
 
-                    return command;
+                    tableWithCommand.Command = command.Adapt<CommandForTable>();
+                    tableWithCommand.Command.QuantityOfDish = command.CommandDetailsCollection.Sum(cd => cd.DishQuantity);
                 }
                 else
                 {
-                    return null;
+                    if (roles.Contains(role))
+                    {
+                        continue;
+                    }
                 }
 
-
-
-            };
-
-            command.Id = commandS.Id;
-            command.NumTable = commandS.TableRestaurant.Id;
-            command.NumSeats = commandS.TableRestaurant.SeatCount;
-            command.CreatedAt = commandS.CreatedAt.ToString("dd/MM/yyyy");
-            command.StatescommandId = commandS.CommandState.Id;
-            command.StatesCommandName = commandS.CommandState.Name;
-            command.CantSeats = commandS.SeatCount;
-            command.EmployeeId = commandS.Employee.Id;
-            command.EmployeeName = commandS.Employee.FirstName + " " + commandS.Employee.LastName;
-            command.PrecTotOrder = commandS.TotalOrderPrice;
-            command.isCommandActive = true;
-            command.StateTable = commandS.TableRestaurant.State;
-
-
-            if (commandS.CommandDetailsCollection.Any())
-            {
-                command.DetailsComand = commandS.CommandDetailsCollection.Select(d => new DetailCommandCustom
-                {
-                    Id = d.Id,
-                    CantDish = d.DishQuantity,
-                    PrecDish = d.DishPrice,
-                    Observation = d.Observation,
-                    Dish = new DishCustom
-                    {
-                        Id = d.Dish.Id,
-                        ImgDish = d.Dish.Image,
-                        PriceDish = d.Dish.Price,
-                        CategoryId = d.Dish.Category.Id,
-                        CategoryName = d.Dish.Category.Name,
-                        NameDish = d.Dish.Name
-                    },
-                    PrecOrder = d.OrderPrice,
-
-                }).ToList();
-            }
-            else
-            {
-                command.DetailsComand = new List<DetailCommandCustom>();
+                collection.Add(tableWithCommand);
             }
 
-            return command;
-
+            return collection;
         }
-    }*/
     }
 }

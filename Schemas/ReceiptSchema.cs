@@ -8,6 +8,11 @@ namespace project_backend.Schemas
         [Range(0, 999, ErrorMessage = "El campo 'Descuento' debe ser un número decimal positivo no mayor a 999")]
         [RegularExpression(@"^\d{1,3}(.\d{1,2})?$", ErrorMessage = "El campo 'Descuento' no tiene el formato correcto. Debe ser un número decimal de hasta 3 dígitos en la parte entera y hasta dos dígitos en la parte decimal")]
         public decimal Discount { get; set; }
+
+        [Required(ErrorMessage = "El campo 'Monto Adicional' es requerido")]
+        [Range(0, 999, ErrorMessage = "El campo 'Monto Adicional' debe ser un número decimal positivo no mayor a 999")]
+        [RegularExpression(@"^\d{1,3}(.\d{1,2})?$", ErrorMessage = "El campo 'Monto Adicional' no tiene el formato correcto. Debe ser un número decimal de hasta 3 dígitos en la parte entera y hasta dos dígitos en la parte decimal")]
+        public decimal AdditionalAmount { get; set; }
     }
 
     public class ReceiptCreate : ReceiptPrincipal

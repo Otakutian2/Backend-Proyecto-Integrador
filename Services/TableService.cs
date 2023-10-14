@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Mapster;
+using Microsoft.EntityFrameworkCore;
 using project_backend.Data;
-using project_backend.Dto;
+using project_backend.Enums;
 using project_backend.Interfaces;
 using project_backend.Models;
+using project_backend.Schemas;
 using System.Linq.Expressions;
 
 namespace project_backend.Services
@@ -87,7 +88,7 @@ namespace project_backend.Services
 
             return result;
         }
-        /*
+
         public async Task<int> GetNumberCommandInTable(int tableId)
         {
             var table = await _context.TableRestaurant
@@ -97,44 +98,39 @@ namespace project_backend.Services
 
             return table.CommandCollection.Count;
         }
-        */
+
         public async Task<int> Count(Expression<Func<TableRestaurant, bool>> predicate = null)
         {
             return await (predicate != null ? _context.TableRestaurant.CountAsync(predicate) : _context.TableRestaurant.CountAsync());
         }
 
-        /*
-        public async Task<List<TableComands>> GetTableCollectionWithCommand(string role)
+        public async Task<List<TableRestaurantWithCommand>> GetTableCollectionWithCommand(string role)
         {
-            List<TableComands> response = new List<TableComands>();
-
-            List<TableRestaurant> tables = await _context.TableRestaurant.
-            Include(c => c.CommandCollection).ThenInclude(c => c.Employee)
-           .Include(c => c.CommandCollection).ThenInclude(c => c.CommandState)
-            .ToListAsync();
-
+            List<TableRestaurantWithCommand> collection = new();
+            List<TableRestaurant> tables = await _context.TableRestaurant.ToListAsync();
             string[] roles = { "Cajero", "Cocinero" };
 
+            // Mesas con comandas
             foreach (var table in tables)
             {
-                TableComands tableComands = new TableComands();
+                TableRestaurantWithCommand tableWithCommand = new();
+                tableWithCommand.Table = table.Adapt<TableRestaurantGet>();
 
-                tableComands.NumTable = table.Id;
-                tableComands.NumSeats = table.SeatCount;
-                tableComands.StateTable = table.State;
+                var command = await _context.Command.Where(c => c.TableRestaurantId == table.Id && c.CommandStateId != (int)CommandStateEnum.Paid)
+                    .Include(c => c.Employee.User)
+                    .Include(c => c.Employee.Role)
+                    .Include(c => c.CommandState)
+                    .Include(c => c.CommandDetailsCollection).FirstOrDefaultAsync();
 
-                if (table.CommandCollection.Any() && table.CommandCollection != null)
+                if (command != null)
                 {
-                    tableComands.hasCommand = true;
-
-                    List<CommandCustom> commandsCustoms = GetCommandCustoms(table.CommandCollection, ref tableComands, role);
-
-                    if (commandsCustoms.Count == 0)
+                    if (roles.Contains(role) && command.CommandStateId != (int)CommandStateEnum.Prepared)
                     {
                         continue;
                     }
 
-                    tableComands.Command = commandsCustoms;
+                    tableWithCommand.Command = command.Adapt<CommandForTable>();
+                    tableWithCommand.Command.QuantityOfDish = command.CommandDetailsCollection.Sum(cd => cd.DishQuantity);
                 }
                 else
                 {
@@ -142,108 +138,12 @@ namespace project_backend.Services
                     {
                         continue;
                     }
-
-                    tableComands.hasCommand = false;
-
-                    tableComands.Command = new List<CommandCustom> { };
                 }
 
-                response.Add(tableComands);
+                collection.Add(tableWithCommand);
             }
 
-            return response;
+            return collection;
         }
-
-        public async Task<TableComands> GetTableCollectionWithCommandByTableId(int id)
-        {
-            TableComands response = new TableComands();
-
-            TableRestaurant table = await _context.TableRestaurant.
-            Include(c => c.CommandCollection).ThenInclude(c => c.Employee)
-           .Include(c => c.CommandCollection).ThenInclude(c => c.CommandState)
-           .Where(c => c.Id == id).FirstOrDefaultAsync();
-
-            response.NumTable = table.Id;
-            response.NumSeats = table.SeatCount;
-            response.StateTable = table.State;
-
-            return response;
-        }
-
-        public List<CommandCustom> GetCommandCustoms(List<Command> listCommand, ref TableComands tableComands, string role)
-        {
-            List<CommandCustom> commands = new List<CommandCustom>();
-
-            foreach (var command in listCommand)
-            {
-                if (role == "Cocinero" && command.CommandStateId == 3)
-                {
-                    continue;
-                }
-
-                Console.WriteLine("HOLAAAAAAAAAAAAAA" + command);
-
-                if (role == "Cajero" && command.CommandStateId != 2)
-                {
-                    continue;
-                }
-
-                CommandCustom commandsCustom = new CommandCustom();
-
-                commandsCustom.Id = command.Id;
-                commandsCustom.CantSeats = command.SeatCount;
-                commandsCustom.PrecTotOrder = command.TotalOrderPrice;
-                commandsCustom.CreatedAt = command.CreatedAt.ToString("dd/MM/yyyy");
-                commandsCustom.EmployeeId = command.EmployeeId;
-                commandsCustom.EmployeeName = command.Employee.FirstName + " " + command.Employee.LastName;
-                commandsCustom.StatescommandId = command.CommandStateId;
-                commandsCustom.StatesCommandName = command.CommandState.Name;
-
-                List<CommandDetails> detailsComands = _context.CommandDetails.
-                Include(c => c.Dish).ThenInclude(c => c.Category).
-                Where(c => c.CommandId == command.Id).ToList();
-
-                List<DetailCommandCustom> details = new List<DetailCommandCustom>();
-                if (detailsComands.Any() && detailsComands != null)
-                {
-                    foreach (var detail in detailsComands)
-                    {
-                        DetailCommandCustom detailsComandCustom = new DetailCommandCustom();
-                        detailsComandCustom.Id = detail.Id;
-                        detailsComandCustom.CantDish = detail.DishQuantity;
-                        detailsComandCustom.PrecDish = detail.DishPrice;
-                        detailsComandCustom.Dish = new DishCustom()
-                        {
-                            Id = detail.Dish.Id,
-                            CategoryId = detail.Dish.CategoryId,
-                            CategoryName = detail.Dish.Category.Name,
-                            ImgDish = detail.Dish.Image,
-                            NameDish = detail.Dish.Name,
-                            PriceDish = detail.Dish.Price
-                        };
-
-                        detailsComandCustom.Observation = detail.Observation;
-                        detailsComandCustom.PrecOrder = detail.OrderPrice;
-
-                        details.Add(detailsComandCustom);
-                    }
-
-                    commandsCustom.DetailsComand = details;
-                }
-                else
-                {
-                    commandsCustom.DetailsComand = new List<DetailCommandCustom> { };
-                }
-
-                if (command.CommandState.Id.Equals(1) || command.CommandState.Id.Equals(2))
-                {
-                    tableComands.commandActive = commandsCustom;
-                }
-
-                commands.Add(commandsCustom);
-            }
-
-            return commands;
-        }*/
     }
 }
