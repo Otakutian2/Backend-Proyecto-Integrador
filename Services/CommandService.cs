@@ -205,7 +205,7 @@ namespace project_backend.Services
 
                 if (command != null)
                 {
-                    if (roles.Contains(role) && command.CommandStateId != (int)CommandStateEnum.Prepared)
+                    if (role == "Cajero" && command.CommandStateId != (int)CommandStateEnum.Prepared)
                     {
                         continue;
                     }
