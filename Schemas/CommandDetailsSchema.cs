@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace project_backend.Schemas
+namespace proyecto_backend.Schemas
 {
     public class CommandDetailsPrincipal
     {
@@ -9,7 +9,7 @@ namespace project_backend.Schemas
         public int DishQuantity { get; set; }
 
         [MaxLength(150, ErrorMessage = "El campo 'Observación' debe tener una longitud máxima de 50 caracteres")]
-        public string? Observation { get; set; }
+        public string Observation { get; set; }
     }
 
     public class CommandDetailsCreate : CommandDetailsPrincipal

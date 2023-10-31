@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace project_backend.Utils
+namespace proyecto_backend.Utils
 {
     public static class EnumUtils
     {

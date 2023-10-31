@@ -1,6 +1,6 @@
-﻿using project_backend.Models;
+﻿using proyecto_backend.Models;
 
-namespace project_backend.Interfaces
+namespace proyecto_backend.Interfaces
 {
     public interface IAuth
     {

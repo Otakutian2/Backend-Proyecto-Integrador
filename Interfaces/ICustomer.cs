@@ -1,6 +1,6 @@
-﻿using project_backend.Models;
+﻿using proyecto_backend.Models;
 
-namespace project_backend.Interfaces
+namespace proyecto_backend.Interfaces
 {
     public interface ICustomer
     {
@@ -9,5 +9,6 @@ namespace project_backend.Interfaces
         public Task<Customer> GetFirstOrDefault();
         public Task<bool> CreateCustomer(Customer customer);
         public Task<Customer> FindCustomerByDni(string id);
+        public Task<bool> IsDniUnique(string dni);
     }
 }

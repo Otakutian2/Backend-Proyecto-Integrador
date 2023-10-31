@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using project_backend.Data;
-using project_backend.Interfaces;
-using project_backend.Models;
+using proyecto_backend.Data;
+using proyecto_backend.Interfaces;
+using proyecto_backend.Models;
 
-namespace project_backend.Services
+namespace proyecto_backend.Services
 {
     public class EstablishmentService : IEstablishment
     {

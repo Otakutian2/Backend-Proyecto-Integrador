@@ -1,11 +1,12 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using project_backend.Interfaces;
-using project_backend.Models;
-using project_backend.Schemas;
+using Microsoft.Reporting.Map.WebForms.BingMaps;
+using proyecto_backend.Interfaces;
+using proyecto_backend.Models;
+using proyecto_backend.Schemas;
 
-namespace project_backend.Controllers
+namespace proyecto_backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -59,6 +60,8 @@ namespace project_backend.Controllers
             {
                 return NotFound("Empleado no encontrado");
             }
+
+            employeeUpdate.User.Email = employeeUpdate.User.Email.ToLower();
 
             var isNotDniUnique = !await _employeeService.IsDniUnique(employeeUpdate.Dni, employee.Id);
             var isNotPhoneUnique = !await _employeeService.IsPhoneUnique(employeeUpdate.Phone, employee.Id);
@@ -117,6 +120,8 @@ namespace project_backend.Controllers
             {
                 return BadRequest(ModelState); // Devolver un BadRequest con los errores de validación
             }
+
+            employee.User.Email = employee.User.Email.ToLower();
 
             var isNotDniUnique = !await _employeeService.IsDniUnique(employee.Dni);
             var isNotPhoneUnique = !await _employeeService.IsPhoneUnique(employee.Phone);

@@ -1,4 +1,4 @@
-﻿namespace project_backend.Schemas
+﻿namespace proyecto_backend.Schemas
 {
     public class CommandStatePrincipal
     {

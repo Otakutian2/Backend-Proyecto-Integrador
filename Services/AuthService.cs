@@ -1,11 +1,11 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using project_backend.Interfaces;
-using project_backend.Models;
+using proyecto_backend.Interfaces;
+using proyecto_backend.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace project_backend.Services
+namespace proyecto_backend.Services
 {
     public class AuthService : IAuth
     {

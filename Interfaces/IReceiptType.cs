@@ -1,7 +1,7 @@
-﻿using project_backend.Models;
+﻿using proyecto_backend.Models;
 using System.Linq.Expressions;
 
-namespace project_backend.Interfaces
+namespace proyecto_backend.Interfaces
 {
     public interface IReceiptType
     {

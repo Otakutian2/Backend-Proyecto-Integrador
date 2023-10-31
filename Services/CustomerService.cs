@@ -1,9 +1,9 @@
-using Microsoft.EntityFrameworkCore;
-using project_backend.Data;
-using project_backend.Interfaces;
-using project_backend.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using proyecto_backend.Data;
+using proyecto_backend.Interfaces;
+using proyecto_backend.Models;
 
-namespace project_backend.Services
+namespace proyecto_backend.Services
 {
     public class CustomerService : ICustomer
     {
@@ -60,5 +60,10 @@ namespace project_backend.Services
 
             return listCustomer;
         }
+        public async Task<bool> IsDniUnique(string dni)
+        {
+            return await _context.Customer.AllAsync(e => e.Dni != dni);
+        }
+
     }
 }

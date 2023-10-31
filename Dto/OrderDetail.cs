@@ -1,4 +1,4 @@
-﻿namespace project_backend.Dto
+﻿namespace proyecto_backend.Dto
 {
     public class OrderDetail
     {

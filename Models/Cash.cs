@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace project_backend.Models
+namespace proyecto_backend.Models
 {
     public class Cash
     {

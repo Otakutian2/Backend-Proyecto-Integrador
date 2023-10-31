@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using project_backend.Data;
-using project_backend.Interfaces;
-using project_backend.Services;
+using proyecto_backend.Data;
+using proyecto_backend.Interfaces;
+using proyecto_backend.Services;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -28,7 +28,7 @@ builder.Services.AddScoped<IEstablishment, EstablishmentService>();
 builder.Services.AddScoped<IReceipt, ReceiptService>();
 builder.Services.AddScoped<ICustomer, CustomerService>();
 builder.Services.AddScoped<IReceiptType, ReceiptTypeServices>();
-//builder.Services.AddScoped<IReport, ReportService>();
+builder.Services.AddScoped<IReport, ReportService>();
 builder.Services.AddScoped<IEmail, EmailService>();
 
 // Add services to the container.
@@ -89,7 +89,8 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
     policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
+        policy
+              //.WithOrigins("http://localhost:3000")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowAnyOrigin()
@@ -118,12 +119,15 @@ builder.Services
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Usar swagger solo en el desarrollo
+/*if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+}*/
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 using (var scope = app.Services.CreateScope())
 {

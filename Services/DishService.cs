@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using project_backend.Data;
-using project_backend.Dto;
-using project_backend.Interfaces;
-using project_backend.Models;
+using proyecto_backend.Data;
+using proyecto_backend.Dto;
+using proyecto_backend.Interfaces;
+using proyecto_backend.Models;
 using System.Linq.Expressions;
 
-namespace project_backend.Services
+namespace proyecto_backend.Services
 {
     public class DishService : IDish
     {
@@ -121,9 +121,9 @@ namespace project_backend.Services
                         select new DishOrderStatistics
                         {
                             DishId = g.Key.DishId,
-                            NameDish = g.Key.Name,
+                            Name = g.Key.Name,
                             ImgDish = g.Key.Image,
-                            Name = g.Key.CategoryName,
+                            Category = g.Key.CategoryName,
                             TotalSales = g.Sum(dc => dc.OrderPrice),
                             QuantityOfDishesSold = g.Sum(dc => dc.DishQuantity)
                         };

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace project_backend.Models
+namespace proyecto_backend.Models
 {
     [Index(nameof(Phone), IsUnique = true)]
     [Index(nameof(Dni), IsUnique = true)]

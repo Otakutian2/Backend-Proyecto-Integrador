@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using project_backend.Schemas;
-using project_backend.Models;
 using Mapster;
-using project_backend.Interfaces;
-using project_backend.Enums;
-using project_backend.Utils;
 using Microsoft.AspNetCore.Authorization;
+using proyecto_backend.Interfaces;
+using proyecto_backend.Utils;
+using proyecto_backend.Models;
+using proyecto_backend.Enums;
+using proyecto_backend.Schemas;
 
-namespace project_backend.Controllers
+namespace proyecto_backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -1,4 +1,4 @@
-﻿namespace project_backend.Interfaces
+﻿namespace proyecto_backend.Interfaces
 {
     public interface IEmail
     {

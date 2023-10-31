@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace project_backend.Models
+namespace proyecto_backend.Models
 {
     [Table("command_details")]
     public class CommandDetails
@@ -21,7 +21,7 @@ namespace project_backend.Models
         public decimal OrderPrice { get; set; }
 
         [MaxLength(150)]
-        public string? Observation { get; set; }
+        public string Observation { get; set; }
 
         [Column("command_id")]
         public int CommandId { get; set; }

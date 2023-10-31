@@ -1,8 +1,8 @@
-﻿using project_backend.Models;
-using project_backend.Schemas;
+﻿using proyecto_backend.Models;
+using proyecto_backend.Schemas;
 using System.Linq.Expressions;
 
-namespace project_backend.Interfaces
+namespace proyecto_backend.Interfaces
 {
     public interface ICommand
     {

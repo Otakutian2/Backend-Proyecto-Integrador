@@ -1,10 +1,10 @@
-﻿using project_backend.Interfaces;
-using project_backend.Models;
-using Microsoft.EntityFrameworkCore;
-using project_backend.Data;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using proyecto_backend.Interfaces;
+using proyecto_backend.Models;
+using proyecto_backend.Data;
 
-namespace project_backend.Services
+namespace proyecto_backend.Services
 {
     public class CategoryService : ICategory
     {

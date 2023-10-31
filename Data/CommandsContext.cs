@@ -1,8 +1,8 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using project_backend.Models;
+using proyecto_backend.Models;
 
-namespace project_backend.Data
+namespace proyecto_backend.Data
 {
     public class CommandContext : DbContext
     {

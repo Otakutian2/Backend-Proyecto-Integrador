@@ -1,11 +1,11 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using project_backend.Interfaces;
-using project_backend.Schemas;
-using project_backend.Utils;
+using proyecto_backend.Interfaces;
+using proyecto_backend.Schemas;
+using proyecto_backend.Utils;
 
-namespace project_backend.Controllers
+namespace proyecto_backend.Controllers
 {
     [ApiController]
     [Route("api/Auth")]

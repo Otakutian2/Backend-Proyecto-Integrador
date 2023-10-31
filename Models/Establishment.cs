@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace project_backend.Models
+namespace proyecto_backend.Models
 {
     [Index(nameof(Ruc), IsUnique = true)]
     public class Establishment

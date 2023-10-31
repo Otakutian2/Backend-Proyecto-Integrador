@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using project_backend.Data;
-using project_backend.Interfaces;
-using project_backend.Models;
-using project_backend.Utils;
+using proyecto_backend.Data;
+using proyecto_backend.Interfaces;
+using proyecto_backend.Models;
+using proyecto_backend.Utils;
 using System.Linq.Expressions;
 
-namespace project_backend.Services
+namespace proyecto_backend.Services
 {
     public class EmployeeService : IEmployee
     {

@@ -1,7 +1,7 @@
-﻿using project_backend.Enums;
+﻿using proyecto_backend.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace project_backend.Schemas
+namespace proyecto_backend.Schemas
 {
     public class TableRestaurantPrincipal
     {
@@ -24,7 +24,7 @@ namespace project_backend.Schemas
 
     public class TableRestaurantWithCommand
     {
-        public TableRestaurantGet? Table { get; set; }
+        public TableRestaurantGet Table { get; set; }
         public CommandForTable Command { get; set; }
     }
 }

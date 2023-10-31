@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace project_backend.Schemas
+namespace proyecto_backend.Schemas
 {
     public class CommandPrincipal
     {
@@ -29,7 +29,7 @@ namespace project_backend.Schemas
         public int Id { get; set; }
         public decimal TotalOrderPrice { get; set; }
         public DateTime CreatedAt { get; set; }
-        public TableRestaurantGet? TableRestaurant { get; set; }
+        public TableRestaurantGet TableRestaurant { get; set; }
         public CommandStateGet CommandState { get; set; }
         public EmployeeGet Employee { get; set; }
         public List<CommandDetailsGet> CommandDetailsCollection { get; set; } = new List<CommandDetailsGet>();

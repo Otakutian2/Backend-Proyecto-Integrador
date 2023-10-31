@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace project_backend.Models
+namespace proyecto_backend.Models
 {
     [Index(nameof(Email), IsUnique = true)]
     public class User
@@ -15,6 +15,8 @@ namespace project_backend.Models
 
         [Required]
         public string Password { get; set; }
+
+        public int Code { get; set; }
 
         [Column("employee_id")]
         public int EmployeeId { get; set; }

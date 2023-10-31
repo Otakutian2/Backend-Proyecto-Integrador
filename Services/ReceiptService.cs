@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using project_backend.Data;
-using project_backend.Dto;
-using project_backend.Interfaces;
-using project_backend.Models;
+using proyecto_backend.Data;
+using proyecto_backend.Dto;
+using proyecto_backend.Interfaces;
+using proyecto_backend.Models;
 using System.Linq.Expressions;
 
-namespace project_backend.Services
+namespace proyecto_backend.Services
 {
     public class ReceiptService : IReceipt
     {
@@ -29,6 +29,9 @@ namespace project_backend.Services
                 .ThenInclude(x => x.PaymentMethod)
                 .Include(x => x.Command)
                 .Include(x => x.Command.TableRestaurant)
+                .Include(x => x.Command.Employee)
+                .Include(x => x.Command.Employee.User)
+                .Include(x => x.Command.Employee.Role)
                 .Include(x => x.Command.CommandState)
                 .Include(x => x.Command.CommandDetailsCollection)
                 .ThenInclude(x => x.Dish)
@@ -50,6 +53,9 @@ namespace project_backend.Services
                 .ThenInclude(x => x.PaymentMethod)
                 .Include(x => x.Command)
                 .Include(x => x.Command.TableRestaurant)
+                .Include(x => x.Command.Employee)
+                .Include(x => x.Command.Employee.User)
+                .Include(x => x.Command.Employee.Role)
                 .Include(x => x.Command.CommandState)
                 .Include(x => x.Command.CommandDetailsCollection)
                 .ThenInclude(x => x.Dish)

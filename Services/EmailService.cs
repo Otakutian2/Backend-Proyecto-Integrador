@@ -1,8 +1,8 @@
-using project_backend.Interfaces;
-using System.Net.Mail;
+﻿using System.Net.Mail;
 using System.Net;
+using proyecto_backend.Interfaces;
 
-namespace project_backend.Services
+namespace proyecto_backend.Services
 {
     public class EmailService : IEmail
     {

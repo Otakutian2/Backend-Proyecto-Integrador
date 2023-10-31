@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace project_backend.Models
+namespace proyecto_backend.Models
 {
     [Index(nameof(Name), IsUnique = true)]
     public class Role

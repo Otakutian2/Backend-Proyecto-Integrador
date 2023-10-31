@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace project_backend.Models
+namespace proyecto_backend.Models
 {
     [Table("payment_method")]
     [Index(nameof(Name), IsUnique = true)]

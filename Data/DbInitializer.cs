@@ -1,7 +1,7 @@
-﻿using project_backend.Models;
-using project_backend.Utils;
+﻿using proyecto_backend.Models;
+using proyecto_backend.Utils;
 
-namespace project_backend.Data
+namespace proyecto_backend.Data
 {
     public class DbInitializer
     {
@@ -71,7 +71,7 @@ namespace project_backend.Data
                 {
                     FirstName = "Cliente",
                     LastName = string.Empty,
-                    Dni = string.Empty
+                    Dni = "88888888"
                 }); ;
             }
 

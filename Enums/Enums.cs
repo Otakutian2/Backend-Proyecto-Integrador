@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace project_backend.Enums
+namespace proyecto_backend.Enums
 {
     public enum CommandStateEnum
     {

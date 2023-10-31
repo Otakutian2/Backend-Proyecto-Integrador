@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace project_backend.Models
+namespace proyecto_backend.Models
 {
     public class Command
     {
@@ -20,13 +20,13 @@ namespace project_backend.Models
 
         [Column("table_restaurant_id")]
         public int? TableRestaurantId { get; set; }
-        public TableRestaurant? TableRestaurant { get; set; }
+        public TableRestaurant TableRestaurant { get; set; }
 
         [Column("command_state_id")]
         public int CommandStateId { get; set; }
         public CommandState CommandState { get; set; }
 
-        public Receipt? Receipt { get; set; }
+        public Receipt Receipt { get; set; }
 
         [Column("employee_id")]
         public int EmployeeId { get; set; }

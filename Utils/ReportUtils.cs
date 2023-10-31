@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Text;
 
-namespace project_backend.Utils
+namespace proyecto_backend.Utils
 {
     public static class ReportUtils
     {

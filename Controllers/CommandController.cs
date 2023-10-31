@@ -1,12 +1,12 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Mvc;
-using project_backend.Enums;
-using project_backend.Interfaces;
-using project_backend.Models;
-using project_backend.Schemas;
-using project_backend.Utils;
+using proyecto_backend.Enums;
+using proyecto_backend.Interfaces;
+using proyecto_backend.Models;
+using proyecto_backend.Schemas;
+using proyecto_backend.Utils;
 
-namespace project_backend.Controllers
+namespace proyecto_backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -49,7 +49,7 @@ namespace project_backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateCommand([FromBody] CommandCreate command)
+        public async Task<ActionResult<CommandGet>> CreateCommand([FromBody] CommandCreate command)
         {
             if (!ModelState.IsValid)
             {
@@ -108,7 +108,7 @@ namespace project_backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateCommand(int id, [FromBody] CommandUpdate command)
+        public async Task<ActionResult<CommandGet>> UpdateCommand(int id, [FromBody] CommandUpdate command)
         {
             if (!ModelState.IsValid)
             {
