@@ -30,14 +30,12 @@ namespace proyecto_backend.Services
             // Declaramos una lista de claims las cuáles serán información de nuestro token
             var claimsList = new List<Claim>
             {
-                new Claim(ClaimTypes.Sid, employee.Id.ToString()),
+                new Claim("id", employee.Id.ToString()),
                 new Claim(ClaimTypes.Role, employee.Role.Name)
             };
 
             // Se añade algunas configuraciones al token, como la expiración y los claims
             var tokenDescriptor = new JwtSecurityToken(
-                issuer: _configuration["JWTSettings:Issuer"],
-                audience: _configuration["JWTSettings:Audience"],
                 claims: claimsList,
                 expires: DateTime.UtcNow.AddDays(1),
                 signingCredentials: new SigningCredentials(
@@ -54,7 +52,7 @@ namespace proyecto_backend.Services
         public async Task<Employee> GetCurrentUser()
         {
             var identity = _httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
-            var id = int.Parse(identity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Sid)?.Value);
+            var id = int.Parse(identity.Claims.FirstOrDefault(c => c.Type == "id")?.Value);
 
             return await _employeeService.GetById(id);
         }
@@ -62,7 +60,7 @@ namespace proyecto_backend.Services
         public int GetCurrentUserId()
         {
             var identity = _httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
-            var id = int.Parse(identity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Sid)?.Value);
+            var id = int.Parse(identity.Claims.FirstOrDefault(c => c.Type == "id")?.Value);
             return id;
         }
 

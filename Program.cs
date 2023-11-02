@@ -106,12 +106,10 @@ builder.Services
         // Configuraci�n para validar el token
         config.TokenValidationParameters = new TokenValidationParameters()
         {
-            ValidateIssuer = true,
-            ValidateAudience = true,
+            ValidateIssuer = false,
+            ValidateAudience = false,
             ValidateIssuerSigningKey = true,
             ValidateLifetime = true,
-            ValidIssuer = builder.Configuration["JWTSettings:Issuer"], //Se extrae de appsettings.json
-            ValidAudience = builder.Configuration["JWTSettings:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTSettings:SecretKey"])),
         };
     }
