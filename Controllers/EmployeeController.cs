@@ -16,12 +16,14 @@ namespace proyecto_backend.Controllers
         private readonly IEmployee _employeeService;
         private readonly IRole _roleService;
         private readonly ICommand _commandService;
+        private readonly IReceipt _receiptService;
 
-        public EmployeeController(IEmployee employeeService, IRole roleService, ICommand commandService)
+        public EmployeeController(IEmployee employeeService, IRole roleService, ICommand commandService, IReceipt receiptService)
         {
             _employeeService = employeeService;
             _roleService = roleService;
             _commandService = commandService;
+            _receiptService = receiptService;
         }
 
         [HttpGet]
@@ -190,6 +192,21 @@ namespace proyecto_backend.Controllers
             }
 
             var count = await _commandService.Count(c => c.EmployeeId == id);
+
+            return Ok(count);
+        }
+
+        [HttpGet("{id}/number-receipts")]
+        public async Task<ActionResult<int>> GetNumberReceiptInEmployee(int id)
+        {
+            var employeeCount = await _employeeService.Count(e => e.Id == id);
+
+            if (employeeCount == 0)
+            {
+                return NotFound("Empleado no encontrado");
+            }
+
+            var count = await _receiptService.Count(c => c.EmployeeId == id);
 
             return Ok(count);
         }
